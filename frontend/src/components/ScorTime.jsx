@@ -1,0 +1,49 @@
+
+import React, { useState, useEffect } from 'react';
+
+export default function Score({ feedback, gameActive, setGameActive, gameStatus, setGameStatus  }) {
+  const [score, setScore] = useState(100);
+  const [gameTime, setGameTime] = useState(90);
+
+  useEffect(() => {
+    let interval = null;
+
+    if (gameActive && gameTime > 0) {
+      // Update game time every second
+      interval = setInterval(() => {
+      setGameTime((preTime) => preTime -1);
+      }, 1000);
+    } else if (gameTime <= 0) {
+      clearInterval(interval);
+      setGameActive(false);
+      // -----updating to game status------
+    setGameStatus('lost');
+    }
+    
+    return () => clearInterval(interval); // Cleanup on unmount or when gameActive changes
+  }, [gameActive, gameTime, setGameActive, setGameStatus]);
+
+  // Updating points based on feedback
+  useEffect(() => {
+    if (Array.isArray(feedback)) {      
+      feedback.forEach((item) => {
+        if (item.color === 'yellow') {
+          setScore((prevScore) => prevScore - 1);
+        } else if (item.color === 'red') {
+          setScore((prevScore) => prevScore - 2);
+        }         
+    });
+    
+    }
+  }, [feedback]);
+
+  return (
+    <div>
+      <p>Score: {score}</p>
+      <p>Game Time: {gameTime} seconds</p>
+      {gameStatus === 'won' && <p>Congratulations, you've won!</p>}
+      {gameStatus === 'lost' && <p>Game Over. Better luck next time!</p>}
+   
+    </div>
+  );
+}
