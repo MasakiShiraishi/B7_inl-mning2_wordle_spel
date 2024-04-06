@@ -3,25 +3,23 @@ import React, { useState, useEffect } from 'react';
 
 export default function Score({ feedback, gameActive, setGameActive, gameStatus, setGameStatus  }) {
   const [score, setScore] = useState(100);
-  const [gameTime, setGameTime] = useState(90);
+  const [gameTime, setGameTime] = useState(0);
 
   useEffect(() => {
     let interval = null;
 
-    if (gameActive && gameTime > 0) {
+    if (gameActive) {
       // Update game time every second
       interval = setInterval(() => {
-      setGameTime((preTime) => preTime -1);
+      setGameTime((preTime) => preTime + 1);
       }, 1000);
-    } else if (gameTime <= 0) {
+    } else {
       clearInterval(interval);
-      setGameActive(false);
-      // -----updating to game status------
-    setGameStatus('lost');
+
     }
     
     return () => clearInterval(interval); // Cleanup on unmount or when gameActive changes
-  }, [gameActive, gameTime, setGameActive, setGameStatus]);
+  }, [gameActive]);
 
   // Updating points based on feedback
   useEffect(() => {
