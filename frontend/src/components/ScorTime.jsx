@@ -20,7 +20,13 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
     
     return () => clearInterval(interval); // Cleanup on unmount or when gameActive changes
   }, [gameActive]);
-
+  useEffect(() => {
+      if (score <= 0) {
+      setGameActive(false);
+      setGameStatus('lost');
+      setScore(0);
+    }
+  }, [score, setGameActive, setGameStatus]);
   // Updating points based on feedback
   useEffect(() => {
     if (Array.isArray(feedback)) {      
