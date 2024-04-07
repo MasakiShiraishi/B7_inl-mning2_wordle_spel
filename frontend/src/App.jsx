@@ -10,6 +10,7 @@ import Home from './components/pages/Home';
 import Game from './components/Game';
 import StartGameForm from './components/StartGameForm';
 import Start from './components/Start';
+import Score from './components/ScorTime';
 
 function App() {  
   const handleWordSubmit = (word) => {
@@ -33,6 +34,10 @@ function App() {
         <Route
           path="/guess"
           element={<Game/>}
+        />
+        <Route
+          path="/score"
+          element={<Score/>}
         />
         {/* added a route to "WordInput" */}
         {/* <Route

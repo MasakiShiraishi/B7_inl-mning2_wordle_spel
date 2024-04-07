@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Feedback from './Feedback';
 import Score from './ScorTime';
@@ -7,11 +8,13 @@ export default function Game() {
   const [guess, setGuess] = useState('');
   const [feedback, setFeedback] = useState([]);
   const [guesses, setGuesses] = useState([]);
+  const [guessesWords, setGuessesWords] = useState([]);
   const [gameActive, setGameActive] = useState(false);
   // handling to game status
   const [gameStatus, setGameStatus] = useState('active'); 
   // using wordLength at guess typing which decided in StartGameForm.jsx
   const location = useLocation();
+  // const selectedWord = location.state.word;
   const wordLength = location.state.wordLength;
 
   const handleGuessSubmit = async (e) => {
@@ -42,6 +45,16 @@ export default function Game() {
           console.log(newGuesses); 
           return newGuesses;
         });
+        // setGuesses(prevGuesses => {
+        //   const newGuesses = [...prevGuesses, guess];
+        //   console.log(newGuesses); 
+        //   return newGuesses;
+        //  });
+        setGuessesWords(prevGuessesWords => {
+          const newGuessesWords = [...prevGuessesWords, guess];
+          console.log(newGuessesWords); 
+          return newGuessesWords;
+        });
         setFeedback(data.feedback); // Assuming your server responds with a feedback field
         setGuess('');
         // navigate('/guess'); 
@@ -50,9 +63,28 @@ export default function Game() {
         console.error('Failed to game');
       }
     }; 
-
+    if(gameStatus === 'won' || gameStatus === 'lost'){
+      return(
+      <div>
+         <h3>wwwwwwwwwwwww</h3>     
+         <p>Your result</p> 
+      <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
+      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
+      <div>
+      <h3>Guess List</h3>
+        {guesses.map((item, index) => (
+          <div key={index}>
+           
+            <Feedback feedback={item.feedback} />
+          </div>
+        ))}
+        </div>
+     </div>
+     )
+    }
   return (
     <div>
+      <h3>Try now!</h3>
       <form onSubmit={handleGuessSubmit}>
         <input
           value={guess}
@@ -64,7 +96,7 @@ export default function Game() {
         <button type="submit">Guess</button>
       </form>
       <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
-      gameStatus={gameStatus} setGameStatus={setGameStatus} />
+      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
       <div>
       <h3>Guess List</h3>
         {guesses.map((item, index) => (
@@ -76,6 +108,7 @@ export default function Game() {
         </div>
     </div>
   );
+        
 }
 
 

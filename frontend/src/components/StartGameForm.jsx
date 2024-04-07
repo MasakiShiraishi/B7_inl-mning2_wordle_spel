@@ -4,11 +4,15 @@ import { useNavigate } from 'react-router-dom'; // import useNavigate för calli
 export default function StartGameForm({ onStartGame }) {
   const [wordLength, setWordLength] = useState(5);
   const [allowRepeats, setAllowRepeats] = useState(false);
+  const [selectedWord, setSelectedWord] = useState();
+  const [gameStartTime, setGameStartTime] = useState(null);
   // to use hook(useNavigate())
   const navigate = useNavigate(); 
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    const startTime = new Date();
+    setGameStartTime(startTime);
     const response = await fetch('http://localhost:5080/start-game', {
     method: 'POST',
     credentials: 'include',
@@ -21,7 +25,11 @@ export default function StartGameForm({ onStartGame }) {
   if (response.ok) {
     const data = await response.json();
     console.log(data); // You can use this data to do more things, like setting a state
-    navigate('/guess', { state: { wordLength, allowRepeats } }); 
+    console.log(data.word); 
+    setSelectedWord(data.word);
+    console.log(startTime);
+    navigate('/guess', { state: { word: data.word, wordLength, allowRepeats, startTime } }); 
+    
   } else {
     // Handle errors
     console.error('Failed to start game');
@@ -31,7 +39,7 @@ export default function StartGameForm({ onStartGame }) {
   //   // Navigate to WordInput page after sending
   //   navigate('/start-game', { state: { wordLength, allowRepeats } });
   // };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -47,8 +55,11 @@ export default function StartGameForm({ onStartGame }) {
         </label>
       </div>
       <button type="submit">Start Game</button>
+     
     </form>
+   
+    
   );
 }
-
+{/* <Score wordLength={wordLength} selectedWord={ selectedWord}/> */}
 
