@@ -44,47 +44,12 @@ app.get('/highscore', async(req, res) => {
 });
 
 // Use the function in the route handler
+// start game and setting
 app.post('/start-game', startGame);
-// app.post('/start-game', async(req, res) => {
-//   const { length, allowRepeats } =req.body;
-//   const selectedWord = await startGame(length, allowRepeats);
-//    // save a word in session
-//    req.session.correctWord = selectedWord;
-//   res.json({ success: true, message: 'Game started', word: selectedWord });
-// });
-
-// app.post('/start-game', async(req, res) => {
-//   const { length, allowRepeats } = req.body;
-//   try {
-//     const selectedWord = await startGame(length, allowRepeats);
-//     // Now, here you can access `req.session` and set `correctWord`
-//     req.session.correctWord = selectedWord;
-    
-//     console.log(`Repeats allowed: ${allowRepeats}`);
-//     console.log(`Starting game with word length ${length} and repeats allowed: ${allowRepeats}`);
-//     console.log(`Selected word: ${selectedWord}`);
-//     res.json({ success: true, message: 'Game started', word: selectedWord });
-//   } catch (error) {
-//     console.error('Failed to start the game:', error);
-//     res.status(500).json({ success: false, message: 'An error occurred while starting the game.' });
-//   }
-// });
-//   const selectedWord = await startGame(length, allowRepeats);
-//   // save a word in session
-//   req.session.correctWord = selectedWord;
-//    // For now, just log if repeats are allowed and proceed as before
-//    console.log(`Repeats allowed: ${allowRepeats}`);
-//    console.log(
-//      `Starting game with word length ${length} and repeats allowed: ${allowRepeats}`
-//    );
-//    console.log(`Selected word: ${selectedWord}`);
-//    res.json({ success: true, message: 'Game started', word: selectedWord });
-// });
 
 app.post('/guess', (req, res) => {
   const guess = req.body.guess.toUpperCase();
-  const correctWord = req.session.correctWord.toUpperCase();
-  
+  const correctWord = req.session.correctWord.toUpperCase();  
   console.log(`Selected word: ${correctWord}`);
   if (typeof correctWord === 'undefined') {
     return res.status(400).json({ success: false, message: 'Word not found' });
