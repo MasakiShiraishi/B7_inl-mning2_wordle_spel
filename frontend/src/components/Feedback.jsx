@@ -10,23 +10,9 @@ export default function Feedback({ feedback, guess }) {
       </span>
     ))}
   </div>
-    // <div>
-    //   {feedback.map((letter, index) => (
-    //     <span key={index} className={`letter ${letter.status}`}>
-    //       {letter.char}
-    //     </span>
-    //   ))}
-    // </div>
+    
   );
 }
 
 
 
-
-  //   <div>
-  //   {feedback.map((item, index) => (
-  //     <span key={index} style={{ color: item.color }}>
-  //       {guess[index]}
-  //     </span>
-  //   ))}
-  // </div>

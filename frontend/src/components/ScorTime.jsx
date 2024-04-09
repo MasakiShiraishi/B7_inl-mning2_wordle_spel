@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Game from './Game';
 import StartGameForm from './StartGameForm';
 import Feedback from './Feedback';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 // wordLength, selectedWord
@@ -28,10 +28,12 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
     gameTime,
   }
 // console.log(wordLength);
- 
+  // setting navigate to "SendFeedback"
+  const navigate = useNavigate();
   const handleHighScoreSubmit = async (e) => {
     e.preventDefault();
     setGameActive(true); 
+    try{
       const response = await fetch('http://localhost:5080/highscore', {
         method: 'POST',
         credentials: 'include',
@@ -40,29 +42,24 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
         },
         body: JSON.stringify({
           highscore: highscore, // Make sure this variable is correctly defined and holds the value you want to send
-        }),
+        }),        
       });
+      if(response.ok){
+        navigate('/send-feedback');
+      }else{
+        console.error('Failed to submit highscore');
+      }
+    } catch (error) {
+      console.error('Error submitting highscore:', error);
+      }
     }
-
-  // useEffect(() => {
-  //   let interval = null;
-  //   if (gameActive) {
-  //     // Update game time every second
-  //     interval = setInterval(() => {
-  //     setGameTime((preTime) => preTime + 1);
-  //     }, 1000);
-  //   } else {
-  //     clearInterval(interval);
-  //   }    
-  //   return () => clearInterval(interval); // Cleanup on unmount or when gameActive changes
-  // }, [gameActive]);
 
   useEffect(() => {
     if (gameStatus === 'won' || gameStatus === 'lost') {
       const endTime = new Date();  
       setEndTime(endTime);    
       const startTimeDate = new Date(startTime);     
-      const duration = (endTime - startTimeDate) / 1000;      
+      const duration = parseInt((endTime - startTimeDate) / 1000);      
       console.log(`Game Duration: ${duration} seconds`);
       setGameTime(duration);
     }
@@ -88,7 +85,7 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
     }
  
   }, [feedback]);
-console.log(score);
+
   if(gameStatus === 'won' || gameStatus === 'lost'){
   return (
     <div>

@@ -25,7 +25,7 @@ export default function StartGameForm({ onStartGame }) {
   if (response.ok) {
     const data = await response.json();
     console.log(data); // You can use this data to do more things, like setting a state
-    console.log(data.word); 
+    // console.log(data.word); 
     setSelectedWord(data.word);
     console.log(startTime);
     navigate('/guess', { state: { word: data.word, wordLength, allowRepeats, startTime } }); 
@@ -35,10 +35,6 @@ export default function StartGameForm({ onStartGame }) {
     console.error('Failed to start game');
   }
 };
-  //   onStartGame?.(wordLength, allowRepeats);
-  //   // Navigate to WordInput page after sending
-  //   navigate('/start-game', { state: { wordLength, allowRepeats } });
-  // };
   
   return (
     <form onSubmit={handleSubmit}>
@@ -61,5 +57,5 @@ export default function StartGameForm({ onStartGame }) {
     
   );
 }
-{/* <Score wordLength={wordLength} selectedWord={ selectedWord}/> */}
+
 

@@ -42,14 +42,10 @@ export default function Game() {
     }
         setGuesses(prevGuesses => {
           const newGuesses = [...prevGuesses, { guess, feedback: data.feedback }];
-          console.log(newGuesses); 
+          // console.log(newGuesses); 
           return newGuesses;
         });
-        // setGuesses(prevGuesses => {
-        //   const newGuesses = [...prevGuesses, guess];
-        //   console.log(newGuesses); 
-        //   return newGuesses;
-        //  });
+   
         setGuessesWords(prevGuessesWords => {
           const newGuessesWords = [...prevGuessesWords, guess];
           console.log(newGuessesWords); 
@@ -57,7 +53,7 @@ export default function Game() {
         });
         setFeedback(data.feedback); // Assuming your server responds with a feedback field
         setGuess('');
-        // navigate('/guess'); 
+       
       } else {
         // Handle errors
         console.error('Failed to game');
@@ -66,7 +62,7 @@ export default function Game() {
     if(gameStatus === 'won' || gameStatus === 'lost'){
       return(
       <div>
-         <h3>wwwwwwwwwwwww</h3>     
+         <h3>That's ameging!!</h3>     
          <p>Your result</p> 
       <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
       gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>

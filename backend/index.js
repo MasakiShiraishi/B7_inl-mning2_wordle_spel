@@ -64,10 +64,9 @@ app.post('/highscore', async(req, res) => {
     //  with const highscoreData = req.body
     //  expected : Saved data: { _id: new ObjectId('66112ec9674e7c3eca95248e'), __v: 0 }
     const highscoreData = req.body.highscore;
-    console.log(highscoreData);
     const highscoreModel = new Highscore(highscoreData);
     await highscoreModel.save();
-
+    //  setting unik-id to every highscore datas
     const savedData = await Highscore.findById(highscoreModel._id);
     console.log('Saved data:', savedData);
 
