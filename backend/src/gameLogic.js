@@ -22,7 +22,6 @@ async function startGame(req, res) {
   // save a word in session
   req.session.correctWord = selectedWord;
   // For now, just log if repeats are allowed and proceed as before
-  console.log(`Repeats allowed: ${allowRepeats}`);
   console.log(
     `Starting game with word length ${length} and repeats allowed: ${allowRepeats}`
   );
