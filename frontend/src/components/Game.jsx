@@ -62,12 +62,12 @@ export default function Game() {
     if(gameStatus === 'won' || gameStatus === 'lost'){
       return(
       <div>
-         <h3>That's ameging!!</h3>     
-         <p>Your result</p> 
+         <h4>That's ameging!!</h4>     
+         <p className='Game-your-result'>Your result</p> 
       <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
       gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
       <div>
-      <h3>Guess List</h3>
+      <h4>Guess List</h4>
         {guesses.map((item, index) => (
           <div key={index}>
            
@@ -80,21 +80,21 @@ export default function Game() {
     }
   return (
     <div>
-      <h3>Try now!</h3>
-      <form onSubmit={handleGuessSubmit}>
-        <input
+      <h4>Try now!</h4>
+      <form className='Game-form' onSubmit={handleGuessSubmit}>
+        <input className='Game-input'
           value={guess}
           onChange={(e) => setGuess(e.target.value)}
           placeholder="Guess a word"
           minLength={wordLength}
           maxLength={wordLength}
         />
-        <button type="submit">Guess</button>
+        <button className='Game-button' type="submit">Guess</button>
       </form>
       <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
       gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
       <div>
-      <h3>Guess List</h3>
+      <h5>Guess List</h5>
         {guesses.map((item, index) => (
           <div key={index}>
            

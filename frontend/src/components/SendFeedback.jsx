@@ -1,8 +1,8 @@
 export default function SendFeedback() {
   return (
     <div>
-      <h2>Congratulations on Your Achievement!</h2>
-      <p>Your result has been successfully recorded.</p>
+      <h5 className="SendFeedback-h5-text">Congratulations on Your Achievement!</h5>
+      <p className="SendFeedback-p-text">Your result has been successfully recorded.</p>
       
     </div>
   );

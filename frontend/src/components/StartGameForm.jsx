@@ -39,18 +39,19 @@ export default function StartGameForm({ onStartGame }) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <h3>Game Settings</h3>
-        <label>Word Length:</label>
+        <h4>Game Settings</h4>
+        <label className="settings-word-length">Word Length:</label>
         <input type="number" value={wordLength} onChange={(e) => setWordLength(Number(e.target.value))} min="4"
           max="15" />
       </div>
-      <div>
-        <label>
-          <input type="checkbox" checked={allowRepeats} onChange={(e) => setAllowRepeats(e.target.checked)} />
-          Allow Repeats
-        </label>
+      <div className='settings-div2'>
+        <label className='settings-allow-repeats'>
+        Allow Repeats </label>
+          <input  type="checkbox" checked={allowRepeats} onChange={(e) => setAllowRepeats(e.target.checked)} />
+          
+       
       </div>
-      <button type="submit">Start Game</button>
+      <button className='button-start-game' type="submit">Start Game</button>
      
     </form>
    

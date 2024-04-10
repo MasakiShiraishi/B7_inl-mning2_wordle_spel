@@ -1,5 +1,6 @@
 import './App.css';
 import './Feedback.css';
+import './Pages.css';
 // Import necessary components from react-router-dom for routing
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';

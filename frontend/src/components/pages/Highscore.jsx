@@ -29,12 +29,12 @@ export default function Highscore() {
 
   return (
     <div>
-      <h1>This is highscore page</h1>
-      <h3>highscore highscore</h3>
+      <h2>This is highscore page</h2>
+      <h4>highscore highscore</h4>
       <ul>
       <p>test</p>
         {highscores.map((score, index) => (
-          <li key={index}>
+          <li className="highscore-list"key={index}>
             {score.name}: {score.score} points
           </li>
         ))}

@@ -8,8 +8,8 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Word Game</h1>
-      <button onClick={handleStartClick}>Start Game</button>
+      <h2>Word Game</h2>
+      <button className="button-start-game" onClick={handleStartClick}>Start Game</button>
     </div>
   );
 }

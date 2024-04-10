@@ -4,9 +4,9 @@ export default function Navbar() {
   return (
     <nav>
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/highscores">High Scores</Link></li>
+        <li className="navbar"><Link to="/">Home</Link></li>
+        <li className="navbar"><Link to="/about">About</Link></li>
+        <li className="navbar"><Link to="/highscores">High Scores</Link></li>
       </ul>
     </nav>
   );

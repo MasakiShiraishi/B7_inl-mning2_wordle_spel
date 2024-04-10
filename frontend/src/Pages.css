@@ -1,0 +1,15 @@
+.button-start-game {
+  border-radius: 20px;
+  padding: 0.4em 1.2em;
+  font-size: 0.9em;
+  transition: font-size 0.5s;
+}
+.button-start-game:hover {
+  font-size: 1.2em;
+  border: 2px solid #050fda;
+}
+
+.highscore-list {
+  list-style-type: none;
+  padding: 8px;
+}

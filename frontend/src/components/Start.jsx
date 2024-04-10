@@ -7,7 +7,7 @@ export default function Start(){
     
    return(
           <div>
-               <h1>Game Setting Page</h1>  
+               <h2>Game Setting Page</h2>  
                <StartGameForm onStartGame={handleStartGame} />
                
           </div>

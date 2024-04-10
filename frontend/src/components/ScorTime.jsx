@@ -89,17 +89,17 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
   if(gameStatus === 'won' || gameStatus === 'lost'){
   return (
     <div>
-      <p>Score: {score}</p>
-      <p>Game Time: {gameTime} seconds</p>
-      {gameStatus === 'won' && <p>Congratulations, you've won!</p>}
-      {gameStatus === 'lost' && <p>Game Over. Better luck next time!</p>}
+      <p className='ScoreTime-score'>Score: {score}</p>
+      <p className='ScoreTime-game-time'>Game Time: {gameTime} seconds</p>
+      {gameStatus === 'won' && <p className='ScoreTime-game-result-msg'>Congratulations, you've won!</p>}
+      {gameStatus === 'lost' && <p className='ScoreTime-game-result-msg'>Game Over. Better luck next time!</p>}
       <form onSubmit={handleHighScoreSubmit}>
-          <input
+          <input className='ScoreTime-input'
             value={name}
             onChange={(ev) => setName(ev.target.value)}
             placeholder="Your name"
           />
-          <input type="submit" />
+          <input className='ScoreTime-button' type="submit" />
         </form>
      
     </div>
@@ -108,7 +108,7 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
 }
 return (
   <div>
-    <p>Score: {score}</p>      
+    <p className='ScoreTime-score'>Score: {score}</p>      
            
   </div>
 );
