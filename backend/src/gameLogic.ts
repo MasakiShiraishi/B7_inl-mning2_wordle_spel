@@ -1,9 +1,9 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
-
+import { Request, Response } from 'express';
 // Convert the URL to a file path and then get the directory name
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// const __dirname = path.dirname(fileURLToPath(new URL(import.meta.url)));
 const WORDS_PATH = path.join(__dirname, 'words_alpha.txt');
 
 async function loadWords() {
@@ -11,7 +11,7 @@ async function loadWords() {
   return data.split('\n').map((word) => word.trim());
 }
 
-async function startGame(req, res) {
+async function startGame(req: Request, res: Response) {
   const { length, allowRepeats } = req.body;
   const words = await loadWords();
   const filteredWords = words.filter((word) => word.length === length);

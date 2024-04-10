@@ -2,16 +2,23 @@ import express from 'express';
 import fs from 'fs/promises';
 import cors from 'cors';
 import session from 'express-session';
-import startGame from './src/gameLogic.js';
-import generateFeedback from './src/feedbackLogic.js';
+import startGame from './src/gameLogic';
+import generateFeedback from './src/feedbackLogic';
 //--------för mongoDB----------------
 import mongoose from 'mongoose';
-import { Highscore } from './src/models.js';
+import { Highscore } from './src/models';
 
 // mongoose.connect(process.env.DB_URL);
 
 mongoose.connect('mongodb+srv://masakishiraishi83:BUq2200tgGMONUOn@cluster0.1myropf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 //-------------------------------
+// TypeScript
+declare module "express-session"{
+  interface SessionData{
+    correctWord?: string;
+  }
+}
+
 const app = express();
 app.use(express.json());
 
@@ -49,11 +56,13 @@ app.post('/start-game', startGame);
 
 app.post('/guess', (req, res) => {
   const guess = req.body.guess.toUpperCase();
-  const correctWord = req.session.correctWord.toUpperCase();  
-  console.log(`Selected word: ${correctWord}`);
-  if (typeof correctWord === 'undefined') {
+  
+  if (typeof req.session.correctWord === 'undefined') {
     return res.status(400).json({ success: false, message: 'Word not found' });
   }  
+
+  const correctWord = req.session.correctWord.toUpperCase();  
+  console.log(`Selected word: ${correctWord}`);
   const { feedback, isCorrect } = generateFeedback(guess, correctWord);
   
   res.json({ success: true, feedback: feedback, isCorrect: isCorrect });

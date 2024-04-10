@@ -1,7 +1,8 @@
-function generateFeedback(guess, correctWord) {
-  let feedback = [];
+function generateFeedback(guess:string, correctWord:string){
+
+  let feedback: { letter: string; color: string }[]= [];
   // Initialize a copy of the correctWord to track letters used for yellow feedback
-  let remainingLetters = correctWord.split('');
+  let remainingLetters:(string| null) [] = correctWord.split('');
   // Check if the guess is correct (isCorrect flag)
   const isCorrect = guess === correctWord;
 

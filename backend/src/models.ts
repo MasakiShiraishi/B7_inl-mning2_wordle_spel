@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const Highscore = mongoose.model('Highscore', {
+// Define the schema
+const highscoreSchema = new mongoose.Schema({
   score: Number,
   startTime: String,
   name: String,
@@ -10,5 +11,9 @@ const Highscore = mongoose.model('Highscore', {
   endTime: String,
   gameTime: Number,
 });
+
+// Create the model based on the schema
+const Highscore = mongoose.model('Highscore', highscoreSchema);
+
 
 export { Highscore }
