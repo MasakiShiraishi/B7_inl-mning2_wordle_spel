@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-export default function Highscore() {
-  const [highscores, setHighscores] = useState([]); 
+type HighscoresProps ={
+  name?: string;
+  score?: number;
+}
+// export default function Highscore() {
+  const Highscore: FC<HighscoresProps> = () => {
+  const [highscores, setHighscores] = useState<HighscoresProps[]>([]); 
 
   useEffect(() => {
     
@@ -32,7 +37,6 @@ export default function Highscore() {
       <h2>This is highscore page</h2>
       <h4>highscore highscore</h4>
       <ul>
-      <p>test</p>
         {highscores.map((score, index) => (
           <li className="highscore-list"key={index}>
             {score.name}: {score.score} points
@@ -42,3 +46,5 @@ export default function Highscore() {
     </div>
   );
 }
+
+export default  Highscore;

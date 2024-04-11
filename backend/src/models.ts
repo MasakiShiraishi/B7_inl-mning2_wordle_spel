@@ -6,6 +6,9 @@ const highscoreSchema = new mongoose.Schema({
   startTime: String,
   name: String,
   guessesWords: [String],
+  // guessesWords: [{
+  //   guess: String,
+  // }],
   selectedWord: String,
   wordLength: Number,
   endTime: String,

@@ -40,7 +40,7 @@ app.use(session({
 }));
 
 app.get('/', async (req, res) => {
-  const html = await fs.readFile('../frontend/dist/index.html');
+  const html = await fs.readFile('../ts-frontend/dist/index.html');
   res.type('html').send(html);
 });
 

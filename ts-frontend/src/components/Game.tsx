@@ -4,20 +4,22 @@ import Feedback from './Feedback';
 import Score from './ScorTime';
 import { useLocation } from 'react-router-dom';
 
+
+
 export default function Game() {
-  const [guess, setGuess] = useState('');
-  const [feedback, setFeedback] = useState([]);
-  const [guesses, setGuesses] = useState([]);
-  const [guessesWords, setGuessesWords] = useState([]);
-  const [gameActive, setGameActive] = useState(false);
+  const [guess, setGuess] = useState<string>('');
+  const [feedback, setFeedback] = useState<{letter: string; color: string;}[]>([]);
+  const [guesses, setGuesses] = useState<Array<{guess:string; feedback: {letter: string; color: string; }[]}>>([]);
+  const [guessesWords, setGuessesWords] = useState<Array<{guess:string;}>>([]);
+  const [gameActive, setGameActive] = useState<boolean>(false);
   // handling to game status
-  const [gameStatus, setGameStatus] = useState('active'); 
+  const [gameStatus, setGameStatus] = useState<'won' | 'lost' | 'active'>('active'); 
   // using wordLength at guess typing which decided in StartGameForm.jsx
   const location = useLocation();
   // const selectedWord = location.state.word;
   const wordLength = location.state.wordLength;
 
-  const handleGuessSubmit = async (e) => {
+  const handleGuessSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGameActive(true); 
       const response = await fetch('http://localhost:5080/guess', {
@@ -47,7 +49,8 @@ export default function Game() {
         });
    
         setGuessesWords(prevGuessesWords => {
-          const newGuessesWords = [...prevGuessesWords, guess];
+          const newGuess = {guess};
+          const newGuessesWords = [...prevGuessesWords, newGuess];
           console.log(newGuessesWords); 
           return newGuessesWords;
         });
@@ -64,8 +67,8 @@ export default function Game() {
       <div>
          <h4>That's ameging!!</h4>     
          <p className='Game-your-result'>Your result</p> 
-      <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
-      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
+      <Score feedback={feedback}  setGameActive={setGameActive} 
+      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords.map(item => item.guess)}/>
       <div>
       <h4>Guess List</h4>
         {guesses.map((item, index) => (
@@ -85,14 +88,15 @@ export default function Game() {
         <input className='Game-input'
           value={guess}
           onChange={(e) => setGuess(e.target.value)}
-          placeholder="Guess a word"
+          placeholder={gameActive ? "Guess a word" : "Game is not active"}
           minLength={wordLength}
           maxLength={wordLength}
+          disabled={!gameActive} 
         />
         <button className='Game-button' type="submit">Guess</button>
       </form>
-      <Score feedback={feedback} gameActive={gameActive} setGameActive={setGameActive} 
-      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords}/>
+      <Score feedback={feedback}  setGameActive={setGameActive} 
+      gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords.map(item => item.guess)}/>
       <div>
       <h5>Guess List</h5>
         {guesses.map((item, index) => (
