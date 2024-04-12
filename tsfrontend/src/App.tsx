@@ -4,19 +4,18 @@ import './Pages.css';
 // Import necessary components from react-router-dom for routing
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Project from './components/pages/Project';
 import Highscore from './components/pages/Highscore';
 import Home from './components/pages/Home';
 
 import Game from './components/Game';
 import StartGameForm from './components/StartGameForm';
 import Start from './components/Start';
-import Score from './components/ScorTime';
+// import Score from './components/ScorTime';
 import SendFeedback from './components/SendFeedback';
-
+import Project from './components/pages/Project';
 
 function App() {  
-  const handleWordSubmit = (word) => {
+  const handleWordSubmit = (word: string) => {
     console.log(word);
   };
 
@@ -25,7 +24,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/project" element={<Project />} />
+        <Route path="/project" element={<Project/>}/>
         <Route path="/highscores" element={<Highscore />} />
         <Route
           path="/start"
@@ -38,10 +37,10 @@ function App() {
           path="/guess"
           element={<Game/>}
         />
-        <Route
+        {/* <Route
           path="/score"
           element={<Score/>}
-        />
+        /> */}
          <Route
           path="/send-feedback"
           element={<SendFeedback/>}

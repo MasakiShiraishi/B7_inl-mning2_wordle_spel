@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // import useNavigate för calling WordInput.jsx
 
-export default function StartGameForm({ onStartGame }) {
+type StartGameFormProps= {
+  onWordSubmit: (word: string) => void;
+  onStartGame?: (wordLength: number, allowRepeats: boolean) => void; 
+}
+// export default function StartGameForm() { 
+  const StartGameForm: FC<StartGameFormProps> = () => { 
   const [wordLength, setWordLength] = useState(5);
   const [allowRepeats, setAllowRepeats] = useState(false);
-  const [selectedWord, setSelectedWord] = useState();
-  const [gameStartTime, setGameStartTime] = useState(null);
+  // const [selectedWord, setSelectedWord] = useState<string | undefined>(undefined)
+  const [gameStartTime, setGameStartTime] = useState<Date | null>(null);
   // to use hook(useNavigate())
   const navigate = useNavigate(); 
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const startTime = new Date();
     setGameStartTime(startTime);
@@ -26,8 +31,9 @@ export default function StartGameForm({ onStartGame }) {
     const data = await response.json();
     console.log(data); // You can use this data to do more things, like setting a state
     // console.log(data.word); 
-    setSelectedWord(data.word);
+    // setSelectedWord(data.word);
     console.log(startTime);
+    gameStartTime;
     navigate('/guess', { state: { word: data.word, wordLength, allowRepeats, startTime } }); 
     
   } else {
@@ -59,4 +65,4 @@ export default function StartGameForm({ onStartGame }) {
   );
 }
 
-
+export default StartGameForm;

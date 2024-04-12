@@ -1,17 +1,28 @@
 
-import React, { useState, useEffect } from 'react';
-import Game from './Game';
-import StartGameForm from './StartGameForm';
-import Feedback from './Feedback';
+import React, { useState, useEffect, FC } from 'react';
+// import Game from './Game';
+// import StartGameForm from './StartGameForm';
+// import Feedback from './Feedback';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+type ScoreProps = {
+  feedback:  {
+    letter: string;
+    color: string;
+  }[];
+  // gameActive: boolean;
+  setGameActive: React.Dispatch<React.SetStateAction<boolean>>;
+  gameStatus: 'won' | 'lost' | 'active';
+  setGameStatus: React.Dispatch<React.SetStateAction<'won' | 'lost' | 'active'>>;
+  guessesWords: string[];
+}
 
 // wordLength, selectedWord
-export default function Score({ feedback, gameActive, setGameActive, gameStatus, setGameStatus, guessesWords,   }) {
+const Score:FC<ScoreProps> = ({ feedback, setGameActive, gameStatus, setGameStatus, guessesWords,   }) => {
   const [score, setScore] = useState(100);
   const [gameTime, setGameTime] = useState(0);
   const [name, setName] = useState("");
-  const [endTime, setEndTime] = useState(null);
+  const [endTime, setEndTime] = useState<Date | null>(null);
   const location = useLocation();
   const selectedWord = location.state.word;
   const wordLength = location.state.wordLength;
@@ -30,7 +41,7 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
 // console.log(wordLength);
   // setting navigate to "SendFeedback"
   const navigate = useNavigate();
-  const handleHighScoreSubmit = async (e) => {
+  const handleHighScoreSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGameActive(true); 
     try{
@@ -59,7 +70,7 @@ export default function Score({ feedback, gameActive, setGameActive, gameStatus,
       const endTime = new Date();  
       setEndTime(endTime);    
       const startTimeDate = new Date(startTime);     
-      const duration = parseInt((endTime - startTimeDate) / 1000);      
+      const duration = Math.floor((endTime.getTime() - startTimeDate.getTime()) / 1000);      
       console.log(`Game Duration: ${duration} seconds`);
       setGameTime(duration);
     }
@@ -113,3 +124,5 @@ return (
   </div>
 );
 }
+
+export default Score;
