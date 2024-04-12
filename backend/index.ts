@@ -7,7 +7,7 @@ import generateFeedback from './src/feedbackLogic';
 //--------för mongoDB----------------
 import mongoose from 'mongoose';
 import { Highscore } from './src/models';
-
+import path from 'path';
 // mongoose.connect(process.env.DB_URL);
 
 mongoose.connect('mongodb+srv://masakishiraishi83:BUq2200tgGMONUOn@cluster0.1myropf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
@@ -18,7 +18,7 @@ declare module "express-session"{
     correctWord?: string;
   }
 }
-
+// const path = require('path');
 const app = express();
 app.use(express.json());
 
@@ -39,10 +39,24 @@ app.use(session({
   cookie: { secure: false } 
 }));
 
+// app.get('/', async (req, res) => {
+//   const html = await fs.readFile('../tsfrontend/dist/index.html');
+//   res.type('html').send(html);
+// });
 app.get('/', async (req, res) => {
-  const html = await fs.readFile('../ts-frontend/dist/index.html');
-  res.type('html').send(html);
+  try {
+    const filePath = path.join(__dirname, '../tsfrontend/dist/index.html');
+    console.log('Trying to load:', filePath); 
+    const html = await fs.readFile(filePath, 'utf8');
+    res.send(html);
+  } catch (error) {
+    console.error('File read error:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+
+app.use('/assets', express.static(path.join(__dirname, '../tsfrontend/dist/assets')));
 
 app.get('/highscore', async(req, res) => {
   //--------för mongoDB----------
