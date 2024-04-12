@@ -62,7 +62,7 @@ export default function Game() {
         console.error('Failed to game');
       }
     }; 
-    if(gameStatus === 'won' || gameStatus === 'lost'){
+    if(!gameActive && (gameStatus === 'won' || gameStatus === 'lost')){
       return(
       <div>
          <h4>That's ameging!!</h4>     
@@ -88,20 +88,18 @@ export default function Game() {
         <input className='Game-input'
           value={guess}
           onChange={(e) => setGuess(e.target.value)}
-          placeholder={gameActive ? "Guess a word" : "Game is not active"}
+          placeholder="Guess a word"
           minLength={wordLength}
           maxLength={wordLength}
-          disabled={!gameActive} 
         />
         <button className='Game-button' type="submit">Guess</button>
       </form>
-      <Score feedback={feedback}  setGameActive={setGameActive} 
+      <Score feedback={feedback} setGameActive={setGameActive} 
       gameStatus={gameStatus} setGameStatus={setGameStatus} guessesWords={guessesWords.map(item => item.guess)}/>
       <div>
       <h5>Guess List</h5>
         {guesses.map((item, index) => (
-          <div key={index}>
-           
+          <div key={index}>           
             <Feedback feedback={item.feedback} />
           </div>
         ))}

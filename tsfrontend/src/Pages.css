@@ -13,3 +13,35 @@
   list-style-type: none;
   padding: 8px;
 }
+
+/*Project.jsx*/
+.Project-div{
+  margin: auto 10%;
+}
+.Project-titel{
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+.Project-h6{
+  font-size: 1.4em;
+  margin: auto 4%;
+  line-height: 1;
+  text-align: left;
+}
+.Project-h5{
+  font-size: 1.3em;
+  margin: 4%;  
+  /* padding: 3% auto; */
+  text-align: left;
+}
+.Project-p {
+  margin: 2% 4%;
+  text-align: left;
+}
+.Project-frontend-backend{
+  font-size:1.1em;
+  font-style: italic;
+  margin: 2% 4%;
+  text-align: left;
+}
